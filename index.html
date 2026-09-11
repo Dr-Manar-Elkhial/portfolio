@@ -165,6 +165,32 @@
   }
   .btn-outline:hover{ background:var(--ink); color:var(--cream-soft); }
 
+  .photo-placeholder{
+    border:1.5px dashed var(--gold-line);
+    background:rgba(162,121,60,0.05);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:8px; color:var(--stone);
+    padding:16px;
+  }
+  .photo-placeholder svg{ width:26px; height:26px; stroke:var(--gold-deep); fill:none; stroke-width:1.3; }
+  .photo-placeholder span{ font-size:0.76rem; line-height:1.4; max-width:22ch; }
+
+  .hero-flex{ display:flex; gap:56px; align-items:center; }
+  .hero-text{ flex:1.3; min-width:0; }
+  .hero-portrait{
+    flex:1; max-width:280px; aspect-ratio:4/5;
+    flex-shrink:0;
+  }
+  @media (max-width:860px){
+    .hero-flex{ flex-direction:column-reverse; }
+    .hero-portrait{ max-width:220px; width:100%; margin:0 auto; }
+  }
+
+  .case-photo{ aspect-ratio:4/3; margin:-26px -24px 20px; }
+  .case.flagship .case-photo{ margin:-26px -24px 20px; border-color:rgba(162,121,60,0.4); background:rgba(162,121,60,0.08); }
+
+  .modal-photo{ aspect-ratio:16/9; margin-bottom:22px; }
+
   .hero-watermark{
     position:absolute; right:-40px; top:50%; transform:translateY(-50%);
     font-family:var(--serif); font-size:min(38vw, 420px);
@@ -379,17 +405,25 @@
   <section class="hero" style="border-top:none;">
     <span class="hero-watermark" aria-hidden="true">ME</span>
     <div class="wrap">
-      <p class="hero-eyebrow">Heritage Science &amp; Objects Conservation</p>
-      <h1>Reading what materials <em>remember</em>, so heritage can last.</h1>
-      <p class="hero-sub">Dr. Manar M. Elkhial is a heritage scientist and objects conservator with over 15 years across archaeological wood, papyrus, textiles and painted surfaces — bridging laboratory analysis, conservation treatment, and preventive care for museum collections.</p>
-      <div class="hero-meta">
-        <span class="pill">Assistant Professor, Ain Shams University</span>
-        <span class="pill">Former Head, Preventive Conservation — Grand Egyptian Museum</span>
-        <span class="pill">Cairo, Egypt</span>
-      </div>
-      <div class="hero-actions">
-        <a class="btn" href="#practice">View conservation practice</a>
-        <a class="btn btn-outline" href="#contact">Get in touch</a>
+      <div class="hero-flex">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Heritage Science &amp; Objects Conservation</p>
+          <h1>Reading what materials <em>remember</em>, so heritage can last.</h1>
+          <p class="hero-sub">Dr. Manar M. Elkhial is a heritage scientist and objects conservator with over 15 years across archaeological wood, papyrus, textiles and painted surfaces — bridging laboratory analysis, conservation treatment, and preventive care for museum collections.</p>
+          <div class="hero-meta">
+            <span class="pill">Assistant Professor, Ain Shams University</span>
+            <span class="pill">Former Head, Preventive Conservation — Grand Egyptian Museum</span>
+            <span class="pill">Cairo, Egypt</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn" href="#practice">View conservation practice</a>
+            <a class="btn btn-outline" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="hero-portrait photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Add photo: professional portrait</span>
+        </div>
       </div>
     </div>
   </section>
@@ -619,10 +653,6 @@
             <a class="contact-value" href="mailto:manar.elkhial@arch.asu.edu.eg">manar.elkhial@arch.asu.edu.eg</a>
           </li>
           <li>
-            <span class="contact-label">Phone</span>
-            <a class="contact-value" href="tel:+201066137385">+20 106 613 7385</a>
-          </li>
-          <li>
             <span class="contact-label">LinkedIn</span>
             <a class="contact-value" href="https://linkedin.com/in/dr-manar-elkhial" target="_blank" rel="noopener">linkedin.com/in/dr-manar-elkhial</a>
           </li>
@@ -683,6 +713,7 @@
     {
       icon:'papyrus', tag:'Conservation treatment', flagship:false,
       title:'Ancient Egyptian Papyrus',
+      photo:'papyrus object, before/after treatment',
       desc:'Condition assessment, stabilisation and rehousing of fragile papyrus within museum and archaeological collections.',
       meta:'Materials: Papyrus · Role: Lead conservator · Context: Museum collection care',
       body:[
@@ -694,6 +725,7 @@
     {
       icon:'parchment', tag:'Conservation treatment', flagship:false,
       title:'Islamic Parchment',
+      photo:'parchment manuscript, condition or treatment detail',
       desc:'Stabilisation and rehousing of parchment artefacts sensitive to environmental and dimensional change.',
       meta:'Materials: Parchment · Role: Lead conservator · Context: Manuscript collection',
       body:[
@@ -705,6 +737,7 @@
     {
       icon:'paper', tag:'Conservation treatment', flagship:false,
       title:'Jewish Paper Manuscripts',
+      photo:'paper manuscript, stabilisation or rehousing',
       desc:'Stabilisation of fragile paper artefacts balancing preservation with continued documentary accessibility.',
       meta:'Materials: Paper · Role: Lead conservator · Context: National manuscript collection',
       body:[
@@ -716,6 +749,7 @@
     {
       icon:'coffin', tag:'Flagship — treatment & analysis', flagship:true,
       title:'Archaeological Wood & Polychrome Objects',
+      photo:'polychrome coffin, analysis or treatment in progress',
       desc:'Full analytical and treatment programme for polychrome wooden coffins, integrating scientific investigation with conservation decision-making.',
       meta:'Materials: Wood, pigment, binding media · Role: Lead conservator & analyst · Context: Museum collection, New Kingdom material',
       body:[
@@ -728,6 +762,7 @@
     {
       icon:'atmosphere', tag:'Flagship — preventive conservation', flagship:true,
       title:'Modified-Atmosphere & IPM Treatment System',
+      photo:'fumigation system or lab setup',
       desc:'Engineered Egypt\'s first inert-atmosphere fumigation system for insect disinfestation across organic collections.',
       meta:'Materials: Textiles, wood, mummified remains, metals · Role: Head of Fumigation Group · Context: Grand Egyptian Museum, doctoral research',
       body:[
@@ -740,6 +775,7 @@
     {
       icon:'gallery', tag:'Preventive conservation consultation', flagship:false,
       title:'Tutankhamun Galleries',
+      photo:'gallery or exhibition space',
       desc:'Preventive conservation input into exhibition planning for one of the world\'s most visited and sensitive gallery projects.',
       meta:'Materials: Mixed organic & inorganic · Role: Preventive conservation advisor · Context: Exhibition design, GEM',
       body:[
@@ -751,6 +787,7 @@
     {
       icon:'teaching', tag:'Teaching & capacity building', flagship:false,
       title:'Curriculum Design & Training',
+      photo:'teaching, training session or workshop',
       desc:'Authored Ain Shams University\'s undergraduate preventive conservation pathway and trained 60+ practising conservators.',
       meta:'Role: Curriculum author & trainer · Context: University teaching and professional training',
       body:[
@@ -766,6 +803,10 @@
     const el = document.createElement('button');
     el.className = 'case' + (c.flagship ? ' flagship' : '');
     el.innerHTML = `
+      <div class="case-photo photo-placeholder">
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span>Add photo: ${c.photo}</span>
+      </div>
       <div class="case-icon">${icons[c.icon]}</div>
       <p class="case-tag">${c.tag}</p>
       <h3>${c.title}</h3>
@@ -786,7 +827,12 @@
     modalTag.textContent = c.tag;
     modalTitle.textContent = c.title;
     modalMeta.textContent = c.meta;
-    modalBody.innerHTML = c.body.map(([h,p]) => `
+    modalBody.innerHTML = `
+      <div class="modal-photo photo-placeholder">
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span>Add photo: ${c.photo}</span>
+      </div>
+    ` + c.body.map(([h,p]) => `
       <div class="modal-stage"><h4>${h}</h4><p>${p}</p></div>
     `).join('');
     backdrop.classList.add('open');
