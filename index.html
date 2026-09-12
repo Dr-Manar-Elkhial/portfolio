@@ -165,6 +165,10 @@
   }
   .btn-outline:hover{ background:var(--ink); color:var(--cream-soft); }
 
+  .photo-box{ position:relative; overflow:hidden; }
+  .photo-box .photo-placeholder{ position:absolute; inset:0; }
+  .photo-box img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; }
+
   .photo-placeholder{
     border:1.5px dashed var(--gold-line);
     background:rgba(162,121,60,0.05);
@@ -405,24 +409,18 @@
   <section class="hero" style="border-top:none;">
     <span class="hero-watermark" aria-hidden="true">ME</span>
     <div class="wrap">
-      <div class="hero-flex">
-        <div class="hero-text">
-          <p class="hero-eyebrow">Heritage Science &amp; Objects Conservation</p>
-          <h1>Reading what materials <em>remember</em>, so heritage can last.</h1>
-          <p class="hero-sub">Dr. Manar M. Elkhial is a heritage scientist and objects conservator with over 15 years across archaeological wood, papyrus, textiles and painted surfaces — bridging laboratory analysis, conservation treatment, and preventive care for museum collections.</p>
-          <div class="hero-meta">
-            <span class="pill">Assistant Professor, Ain Shams University</span>
-            <span class="pill">Former Head, Preventive Conservation — Grand Egyptian Museum</span>
-            <span class="pill">Cairo, Egypt</span>
-          </div>
-          <div class="hero-actions">
-            <a class="btn" href="#practice">View conservation practice</a>
-            <a class="btn btn-outline" href="#contact">Get in touch</a>
-          </div>
+      <div class="hero-text" style="max-width:64ch;">
+        <p class="hero-eyebrow">Heritage Science &amp; Objects Conservation</p>
+        <h1>Reading what materials <em>remember</em>, so heritage can last.</h1>
+        <p class="hero-sub">Dr. Manar M. Elkhial is a heritage scientist and objects conservator with over 15 years across archaeological wood, papyrus, textiles and painted surfaces — bridging laboratory analysis, conservation treatment, and preventive care for museum collections.</p>
+        <div class="hero-meta">
+          <span class="pill">Assistant Professor, Ain Shams University</span>
+          <span class="pill">Former Head, Preventive Conservation — Grand Egyptian Museum</span>
+          <span class="pill">Cairo, Egypt</span>
         </div>
-        <div class="hero-portrait photo-placeholder">
-          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-          <span>Add photo: professional portrait</span>
+        <div class="hero-actions">
+          <a class="btn" href="#practice">View conservation practice</a>
+          <a class="btn btn-outline" href="#contact">Get in touch</a>
         </div>
       </div>
     </div>
@@ -713,7 +711,7 @@
     {
       icon:'papyrus', tag:'Conservation treatment', flagship:false,
       title:'Ancient Egyptian Papyrus',
-      photo:'papyrus object, before/after treatment',
+      photo:'papyrus object, before/after treatment', photoFile:'papyrus.jpg',
       desc:'Condition assessment, stabilisation and rehousing of fragile papyrus within museum and archaeological collections.',
       meta:'Materials: Papyrus · Role: Lead conservator · Context: Museum collection care',
       body:[
@@ -725,7 +723,7 @@
     {
       icon:'parchment', tag:'Conservation treatment', flagship:false,
       title:'Islamic Parchment',
-      photo:'parchment manuscript, condition or treatment detail',
+      photo:'parchment manuscript, condition or treatment detail', photoFile:'parchment.jpg',
       desc:'Stabilisation and rehousing of parchment artefacts sensitive to environmental and dimensional change.',
       meta:'Materials: Parchment · Role: Lead conservator · Context: Manuscript collection',
       body:[
@@ -737,7 +735,7 @@
     {
       icon:'paper', tag:'Conservation treatment', flagship:false,
       title:'Jewish Paper Manuscripts',
-      photo:'paper manuscript, stabilisation or rehousing',
+      photo:'paper manuscript, stabilisation or rehousing', photoFile:'paper.jpg',
       desc:'Stabilisation of fragile paper artefacts balancing preservation with continued documentary accessibility.',
       meta:'Materials: Paper · Role: Lead conservator · Context: National manuscript collection',
       body:[
@@ -749,7 +747,7 @@
     {
       icon:'coffin', tag:'Flagship — treatment & analysis', flagship:true,
       title:'Archaeological Wood & Polychrome Objects',
-      photo:'polychrome coffin, analysis or treatment in progress',
+      photo:'polychrome coffin, analysis or treatment in progress', photoFile:'polychrome-coffin.jpg',
       desc:'Full analytical and treatment programme for polychrome wooden coffins, integrating scientific investigation with conservation decision-making.',
       meta:'Materials: Wood, pigment, binding media · Role: Lead conservator & analyst · Context: Museum collection, New Kingdom material',
       body:[
@@ -762,7 +760,7 @@
     {
       icon:'atmosphere', tag:'Flagship — preventive conservation', flagship:true,
       title:'Modified-Atmosphere & IPM Treatment System',
-      photo:'fumigation system or lab setup',
+      photo:'fumigation system or lab setup', photoFile:'atmosphere-system.jpg',
       desc:'Engineered Egypt\'s first inert-atmosphere fumigation system for insect disinfestation across organic collections.',
       meta:'Materials: Textiles, wood, mummified remains, metals · Role: Head of Fumigation Group · Context: Grand Egyptian Museum, doctoral research',
       body:[
@@ -775,7 +773,7 @@
     {
       icon:'gallery', tag:'Preventive conservation consultation', flagship:false,
       title:'Tutankhamun Galleries',
-      photo:'gallery or exhibition space',
+      photo:'gallery or exhibition space', photoFile:'tutankhamun-gallery.jpg',
       desc:'Preventive conservation input into exhibition planning for one of the world\'s most visited and sensitive gallery projects.',
       meta:'Materials: Mixed organic & inorganic · Role: Preventive conservation advisor · Context: Exhibition design, GEM',
       body:[
@@ -787,7 +785,7 @@
     {
       icon:'teaching', tag:'Teaching & capacity building', flagship:false,
       title:'Curriculum Design & Training',
-      photo:'teaching, training session or workshop',
+      photo:'teaching, training session or workshop', photoFile:'teaching-training.jpg',
       desc:'Authored Ain Shams University\'s undergraduate preventive conservation pathway and trained 60+ practising conservators.',
       meta:'Role: Curriculum author & trainer · Context: University teaching and professional training',
       body:[
@@ -803,9 +801,14 @@
     const el = document.createElement('button');
     el.className = 'case' + (c.flagship ? ' flagship' : '');
     el.innerHTML = `
-      <div class="case-photo photo-placeholder">
-        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-        <span>Add photo: ${c.photo}</span>
+      <div class="case-photo photo-box">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Add photo: ${c.photo}</span>
+        </div>
+        <img src="photos/${c.photoFile}" alt="${c.title}"
+             onload="this.previousElementSibling.style.display='none'; this.style.display='block';"
+             onerror="this.style.display='none';">
       </div>
       <div class="case-icon">${icons[c.icon]}</div>
       <p class="case-tag">${c.tag}</p>
@@ -828,9 +831,14 @@
     modalTitle.textContent = c.title;
     modalMeta.textContent = c.meta;
     modalBody.innerHTML = `
-      <div class="modal-photo photo-placeholder">
-        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
-        <span>Add photo: ${c.photo}</span>
+      <div class="modal-photo photo-box">
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <span>Add photo: ${c.photo}</span>
+        </div>
+        <img src="photos/${c.photoFile}" alt="${c.title}"
+             onload="this.previousElementSibling.style.display='none'; this.style.display='block';"
+             onerror="this.style.display='none';">
       </div>
     ` + c.body.map(([h,p]) => `
       <div class="modal-stage"><h4>${h}</h4><p>${p}</p></div>
